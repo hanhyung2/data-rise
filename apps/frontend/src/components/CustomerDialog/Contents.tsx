@@ -14,12 +14,10 @@ const Contents = ({ customerId }: ContentsProps) => {
     },
   });
 
-  console.log(data);
-
   return (
     <S.ContentsWrapper>
-      {data?.map(({ product, price, imgSrc, date, quantity }) => (
-        <S.ProductWrapper>
+      {data?.map(({ product, price, imgSrc, date, quantity }, index) => (
+        <S.ProductWrapper key={`${product}-${index}`}>
           <S.ProductImage src={imgSrc} alt={product} />
           <S.ProductDetails>
             <Text as='h4' variant='heading'>

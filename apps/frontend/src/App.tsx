@@ -5,7 +5,11 @@ import { Layout } from '@/layout';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      throwOnError: true,
+      retry: false,
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
+    },
+    mutations: {
       retry: false,
     },
   },

@@ -1,2 +1,2 @@
-export * from './CustomeTable';
+export * from './CustomerTable';
 export * from './PurchaseFrequencyChartSection';

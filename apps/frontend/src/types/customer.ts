@@ -1,7 +1,9 @@
 import { CustomerModel } from '@/models';
 
+export type SortBy = 'asc' | 'desc';
+
 export type GetCustomersParams = {
-  sortBy?: 'asc' | 'desc';
+  sortBy?: SortBy;
   name?: string;
 };
 

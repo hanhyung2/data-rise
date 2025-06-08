@@ -1,3 +1,4 @@
+import { useCustomerTableContext } from '@/components/CustomerTable/CustomerTable.context.ts';
 import { Customer } from '@/types';
 import { useState } from 'react';
 
@@ -8,6 +9,7 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  getPaginationRowModel,
 } from '@tanstack/react-table';
 
 import * as S from './CustomerTable.styled.ts';
@@ -17,6 +19,10 @@ import { CustomerDialog } from '@/components/CustomerDialog';
 const { accessor } = createColumnHelper<Customer>();
 
 const columns = [
+  accessor('id', {
+    header: 'ID',
+    cell: (info) => info.getValue(),
+  }),
   accessor('name', {
     header: '이름',
     cell: (info) => info.getValue(),
@@ -32,14 +38,21 @@ const columns = [
 ];
 
 const Table = () => {
+  const { debounceSearchValue, sortBy } = useCustomerTableContext();
+
   const { data } = useGetCustomers({
-    params: {},
+    params: {
+      sortBy,
+      name: debounceSearchValue ? debounceSearchValue : undefined,
+    },
   });
 
   const table = useReactTable({
     data: data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
   });
 
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
