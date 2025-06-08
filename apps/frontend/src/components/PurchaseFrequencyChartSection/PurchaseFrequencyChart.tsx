@@ -44,32 +44,8 @@ const PurchaseFrequencyChart = ({ startDate, endDate }: PurchaseFrequencyChartPr
 
   const options: ApexOptions = useMemo(
     () => ({
-      chart: {
-        background: 'transparent',
-        animations: {
-          enabled: false,
-        },
-        sparkline: {
-          enabled: true,
-        },
-        toolbar: {
-          show: false,
-        },
-      },
       dataLabels: {
         enabled: false,
-      },
-      states: {
-        hover: {
-          filter: {
-            type: 'none',
-          },
-        },
-        active: {
-          filter: {
-            type: 'none',
-          },
-        },
       },
       plotOptions: {
         bar: {
@@ -78,6 +54,24 @@ const PurchaseFrequencyChart = ({ startDate, endDate }: PurchaseFrequencyChartPr
           colors: {
             backgroundBarRadius: 4,
           },
+        },
+      },
+      xaxis: {
+        type: 'category',
+        labels: {
+          show: true,
+        },
+        axisTicks: {
+          show: true,
+        },
+        axisBorder: {
+          show: true,
+        },
+      },
+      yaxis: {
+        labels: {
+          show: true,
+          formatter: (value) => `${value.toLocaleString()}건`,
         },
       },
       tooltip: {
@@ -99,7 +93,7 @@ const PurchaseFrequencyChart = ({ startDate, endDate }: PurchaseFrequencyChartPr
 
   return (
     <S.ChartWrapper>
-      <Chart series={series} type='bar' options={options} height='300px' />
+      <Chart series={series} type='bar' options={options} height={300} />
     </S.ChartWrapper>
   );
 };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { COLOR } from '@/foundation';
+import { COLOR, TYPOGRAPHY } from '@/foundation';
 
 export const Wrapper = styled.section`
   display: flex;
@@ -28,6 +28,14 @@ export const EmptyChart = styled.div`
 
 export const ChartWrapper = styled.div`
   width: 100%;
+
+  .apexcharts-yaxis-label {
+    ${TYPOGRAPHY['body']};
+  }
+
+  .apexcharts-xaxis-label {
+    ${TYPOGRAPHY['body']};
+  }
 `;
 
 export const TooltipWrapper = styled.div`
