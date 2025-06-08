@@ -1,16 +1,12 @@
-import axios from 'axios';
-
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { GetCustomersParams, GetCustomersAPIResponse } from '@/types';
 import { QUERY_KEY } from '@/constants';
+import { apiClient } from '@/api';
 
 const fetchCustomers = async (params?: GetCustomersParams) => {
   try {
-    const response = await axios.get<GetCustomersAPIResponse>(
-      'http://localhost:4000/api/customers',
-      { params },
-    );
+    const response = await apiClient.get<GetCustomersAPIResponse>('customers', { params });
 
     return response.data;
   } catch {

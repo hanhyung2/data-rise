@@ -1,18 +1,14 @@
-import axios from 'axios';
-
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { GetPurchaseFrequencyParams, GetPurchaseFrequencyAPIResponse } from '@/types';
 import { QUERY_KEY } from '@/constants';
+import { apiClient } from '@/api';
 
 const fetchPurchaseFrequency = async (params?: GetPurchaseFrequencyParams) => {
   try {
-    const response = await axios.get<GetPurchaseFrequencyAPIResponse>(
-      'http://localhost:4000/api/purchase-frequency',
-      {
-        params,
-      },
-    );
+    const response = await apiClient.get<GetPurchaseFrequencyAPIResponse>('purchase-frequency', {
+      params,
+    });
 
     return response.data;
   } catch {
