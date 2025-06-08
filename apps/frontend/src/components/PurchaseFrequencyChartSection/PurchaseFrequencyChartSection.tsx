@@ -3,7 +3,8 @@ import { formatISO } from 'date-fns';
 import { useState } from 'react';
 import PurchaseFrequencyChart from './PurchaseFrequencyChart.tsx';
 
-import styles from './PurchaseFrequencyChartSection.module.css';
+import * as S from './PurchaseFrequencyChartSection.styled.ts';
+import { Text } from '@/components/common';
 
 const PurchaseFrequencyChartSection = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -17,12 +18,14 @@ const PurchaseFrequencyChartSection = () => {
   });
 
   return (
-    <section className={styles.wrapper}>
-      <div className={styles.header}>
-        <h4 className='heading'>구매내역</h4>
-      </div>
+    <S.Wrapper>
+      <S.Header>
+        <Text as='h4' variant='heading'>
+          구매내역
+        </Text>
+      </S.Header>
       <PurchaseFrequencyChart data={data ?? []} />
-    </section>
+    </S.Wrapper>
   );
 };
 

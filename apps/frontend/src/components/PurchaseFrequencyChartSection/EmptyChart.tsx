@@ -1,10 +1,12 @@
-import styles from './PurchaseFrequencyChartSection.module.css';
+import * as S from './PurchaseFrequencyChartSection.styled.ts';
+
+import { Text } from '@/components/common';
 
 const EmptyChart = () => {
   return (
-    <div className={styles.empty}>
-      <p className='body'></p>
-    </div>
+    <S.EmptyChart>
+      <Text variant='body'>구매 내역이 없어요.</Text>
+    </S.EmptyChart>
   );
 };
 

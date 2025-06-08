@@ -1,7 +1,6 @@
 import { css } from 'styled-components';
 
 export const TYPOGRAPHY = {
-  // Title
   heading: css`
     font-weight: 600;
     font-size: 16px;

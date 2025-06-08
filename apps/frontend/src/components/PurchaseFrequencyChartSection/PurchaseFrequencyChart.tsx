@@ -6,6 +6,8 @@ import type { ApexOptions } from 'apexcharts';
 
 import { PurchaseFrequencyModel } from '@/models';
 
+import EmptyChart from './EmptyChart';
+
 interface PurchaseFrequencyChartProps {
   data: PurchaseFrequencyModel[];
 }
@@ -81,6 +83,10 @@ const PurchaseFrequencyChart = ({ data }: PurchaseFrequencyChartProps) => {
     }),
     [],
   );
+
+  if (data.length === 0) {
+    return <EmptyChart />;
+  }
 
   return <Chart series={series} type='bar' options={options} height='126px' />;
 };
