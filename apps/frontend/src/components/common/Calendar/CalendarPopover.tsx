@@ -104,11 +104,13 @@ const CalendarPopover = () => {
           </S.CalendarItem>
         ))}
         {daysInMonth.map((date) => {
-          const isSameStartDate = startDate && format(startDate, 'yyyy-MM-dd') === date.date;
-          const isSameEndDate = endDate && format(endDate, 'yyyy-MM-dd') === date.date;
+          const isSameStartDate = Boolean(
+            startDate && format(startDate, 'yyyy-MM-dd') === date.date,
+          );
+          const isSameEndDate = Boolean(endDate && format(endDate, 'yyyy-MM-dd') === date.date);
 
-          const isAfterStartDate = startDate && isAfter(new Date(date.date), startDate);
-          const isBeforeEndDate = endDate && isBefore(new Date(date.date), endDate);
+          const isAfterStartDate = Boolean(startDate && isAfter(new Date(date.date), startDate));
+          const isBeforeEndDate = Boolean(endDate && isBefore(new Date(date.date), endDate));
 
           return (
             <S.CalendarItem
