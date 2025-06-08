@@ -19,10 +19,14 @@ const fetchCustomerPurchases = async (customerId: CustomerModel['id']) => {
 };
 
 interface UseGetCustomerPurchasesArgs {
-  customerId: CustomerModel['id'];
+  pathVariable: {
+    customerId: CustomerModel['id'];
+  };
 }
 
-const useGetCustomerPurchases = ({ customerId }: UseGetCustomerPurchasesArgs) => {
+const useGetCustomerPurchases = ({ pathVariable }: UseGetCustomerPurchasesArgs) => {
+  const { customerId } = pathVariable;
+
   return useQuery({
     queryFn: () => fetchCustomerPurchases(customerId),
     queryKey: QUERY_KEY.CUSTOMER_PURCHASES(customerId),

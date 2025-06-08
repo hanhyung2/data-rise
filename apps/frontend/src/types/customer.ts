@@ -5,4 +5,9 @@ export type GetCustomersParams = {
   name?: string;
 };
 
-export type GetCustomersAPIResponse = CustomerModel[];
+export type Customer = CustomerModel & {
+  count: number;
+  totalAmount: number;
+};
+
+export type GetCustomersAPIResponse = Customer[];

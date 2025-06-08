@@ -1,3 +1,6 @@
+import { Customer } from '@/types';
+import { useState } from 'react';
+
 import { useGetCustomers } from '@/hooks/api';
 
 import {
@@ -9,9 +12,9 @@ import {
 
 import * as S from './CustomerTable.styled.ts';
 
-import { CustomerModel } from '@/models';
+import { CustomerDialog } from '@/components/CustomerDialog';
 
-const { accessor } = createColumnHelper<CustomerModel>();
+const { accessor } = createColumnHelper<Customer>();
 
 const columns = [
   accessor('name', {
@@ -39,31 +42,48 @@ const Table = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  const [selectedCustomer, setSelectedCustomer] = useState<number | null>(null);
+
+  const handleRowClick = (customer: Customer) => {
+    setSelectedCustomer(customer);
+  };
+
   return (
-    <S.Table>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <S.TH key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(header.column.columnDef.header, header.getContext())}
-              </S.TH>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <S.TR key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <S.TD key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</S.TD>
-            ))}
-          </S.TR>
-        ))}
-      </tbody>
-    </S.Table>
+    <>
+      <S.Table>
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <S.TH key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(header.column.columnDef.header, header.getContext())}
+                </S.TH>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <S.TR key={row.id} onClick={() => handleRowClick(row.original)}>
+              {row.getVisibleCells().map((cell) => (
+                <S.TD key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </S.TD>
+              ))}
+            </S.TR>
+          ))}
+        </tbody>
+      </S.Table>
+      {selectedCustomer && (
+        <CustomerDialog
+          customer={selectedCustomer}
+          onClose={() => setSelectedCustomer(null)}
+          isOpen={true}
+        />
+      )}
+    </>
   );
 };
 
