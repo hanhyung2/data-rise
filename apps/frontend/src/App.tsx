@@ -1,7 +1,7 @@
 import './App.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { PurchaseFrequencyChartSection } from '@/components';
+import { PurchaseFrequencyChartSection, CustomerTable } from '@/components';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,6 +16,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <PurchaseFrequencyChartSection />
+      <CustomerTable />
     </QueryClientProvider>
   );
 }
