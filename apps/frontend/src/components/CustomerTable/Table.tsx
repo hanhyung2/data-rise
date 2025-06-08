@@ -13,6 +13,7 @@ import {
 } from '@tanstack/react-table';
 
 import * as S from './CustomerTable.styled.ts';
+import EmptyTable from './EmptyTable.tsx';
 
 import { CustomerDialog } from '@/components/CustomerDialog';
 
@@ -57,38 +58,40 @@ const Table = () => {
 
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
 
+  const isEmpty = data?.length === 0;
+
   const handleRowClick = (customer: Customer) => {
     setSelectedCustomer(customer);
   };
 
+  if (isEmpty) {
+    return <EmptyTable />;
+  }
+
   return (
     <>
-      <S.Table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <S.TH key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(header.column.columnDef.header, header.getContext())}
-                </S.TH>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <S.TR key={row.id} onClick={() => handleRowClick(row.original)}>
-              {row.getVisibleCells().map((cell) => (
-                <S.TD key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </S.TD>
-              ))}
-            </S.TR>
-          ))}
-        </tbody>
-      </S.Table>
+      <thead>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <tr key={headerGroup.id}>
+            {headerGroup.headers.map((header) => (
+              <S.TH key={header.id}>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(header.column.columnDef.header, header.getContext())}
+              </S.TH>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody>
+        {table.getRowModel().rows.map((row) => (
+          <S.TR key={row.id} onClick={() => handleRowClick(row.original)}>
+            {row.getVisibleCells().map((cell) => (
+              <S.TD key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</S.TD>
+            ))}
+          </S.TR>
+        ))}
+      </tbody>
       {selectedCustomer && (
         <CustomerDialog
           customer={selectedCustomer}

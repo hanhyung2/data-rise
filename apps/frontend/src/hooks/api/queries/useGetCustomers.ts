@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { GetCustomersParams, GetCustomersAPIResponse } from '@/types';
 import { QUERY_KEY } from '@/constants';
@@ -25,7 +25,7 @@ interface UseGetCustomersArgs {
 const useGetCustomers = (args: UseGetCustomersArgs) => {
   const { params } = args || {};
 
-  return useQuery({
+  return useSuspenseQuery({
     queryFn: () => fetchCustomers(params),
     queryKey: QUERY_KEY.CUSTOMERS(params),
   });

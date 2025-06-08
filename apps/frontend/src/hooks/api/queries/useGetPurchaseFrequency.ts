@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { GetPurchaseFrequencyParams, GetPurchaseFrequencyAPIResponse } from '@/types';
 import { QUERY_KEY } from '@/constants';
@@ -27,7 +27,7 @@ interface UseGetPurchaseFrequencyArgs {
 const useGetPurchaseFrequency = (args: UseGetPurchaseFrequencyArgs) => {
   const { params } = args || {};
 
-  return useQuery({
+  return useSuspenseQuery({
     queryFn: () => fetchPurchaseFrequency(params),
     queryKey: QUERY_KEY.PURCHASE_FREQUENCY(params),
   });

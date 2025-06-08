@@ -19,9 +19,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Layout>
-        <div>
-          <PurchaseFrequencyChartSection />
-        </div>
+        <PurchaseFrequencyChartSection />
         <CustomerTable />
       </Layout>
     </QueryClientProvider>

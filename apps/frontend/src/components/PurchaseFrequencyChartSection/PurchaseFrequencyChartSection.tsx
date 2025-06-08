@@ -1,25 +1,12 @@
-import { useGetPurchaseFrequency } from '@/hooks/api';
-import { format } from 'date-fns';
 import { useState } from 'react';
 import PurchaseFrequencyChart from './PurchaseFrequencyChart.tsx';
 
 import * as S from './PurchaseFrequencyChartSection.styled.ts';
-import { Text, Calendar } from '@/components/common';
+import { Text, Calendar, ErrorBoundary } from '@/components/common';
 
 const PurchaseFrequencyChartSection = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-
-  const { data } = useGetPurchaseFrequency({
-    params: {
-      from: startDate ? format(startDate, 'yyyy-MM-dd') : undefined,
-      to: endDate
-        ? format(endDate, 'yyyy-MM-dd')
-        : startDate
-          ? format(startDate, 'yyyy-MM-dd')
-          : undefined,
-    },
-  });
 
   return (
     <S.Wrapper>
@@ -34,7 +21,11 @@ const PurchaseFrequencyChartSection = () => {
           setEndDate={setEndDate}
         />
       </S.Header>
-      <PurchaseFrequencyChart data={data ?? []} />
+      <S.ChartContents>
+        <ErrorBoundary>
+          <PurchaseFrequencyChart startDate={startDate} endDate={endDate} />
+        </ErrorBoundary>
+      </S.ChartContents>
     </S.Wrapper>
   );
 };

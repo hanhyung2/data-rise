@@ -5,7 +5,7 @@ import Contents from './Contents';
 
 import * as S from './CustomerDialog.styled.ts';
 
-import { Text } from '@/components/common';
+import { Text, ErrorBoundary } from '@/components/common';
 import { AiOutlineClose } from 'react-icons/ai';
 
 interface CustomerDialogProps {
@@ -27,7 +27,11 @@ const CustomerDialog = ({ customer, isOpen, onClose }: CustomerDialogProps) => {
           <AiOutlineClose size={24} />
         </div>
       </S.ModalHeader>
-      <Contents customerId={id} />
+      <S.ModalBody>
+        <ErrorBoundary>
+          <Contents customerId={id} />
+        </ErrorBoundary>
+      </S.ModalBody>
     </Modal>
   );
 };

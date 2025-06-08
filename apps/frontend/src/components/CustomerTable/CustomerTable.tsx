@@ -3,6 +3,7 @@ import { useState } from 'react';
 import * as S from './CustomerTable.styled.ts';
 
 import { useDebounceState } from '@/hooks';
+import { ErrorBoundary } from '@/components/common';
 
 import Table from './Table.tsx';
 import DisplaySection from './DisplaySection.tsx';
@@ -18,7 +19,11 @@ const CustomerTable = () => {
     >
       <S.TableWrapper>
         <DisplaySection />
-        <Table />
+        <S.Table>
+          <ErrorBoundary>
+            <Table />
+          </ErrorBoundary>
+        </S.Table>
       </S.TableWrapper>
     </CustomerTableContext.Provider>
   );

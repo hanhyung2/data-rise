@@ -1,3 +1,5 @@
+import { useGetPurchaseFrequency } from '@/hooks/api';
+import { format } from 'date-fns';
 import { useMemo } from 'react';
 
 import { renderToString } from 'react-dom/server';
@@ -6,24 +8,35 @@ import Chart from 'react-apexcharts';
 
 import type { ApexOptions } from 'apexcharts';
 
-import { PurchaseFrequency } from '@/types';
-
 import EmptyChart from './EmptyChart';
 import PurchaseFrequencyChartTooltip from './PurchaseFrequencyChartTooltip.tsx';
 import * as S from './PurchaseFrequencyChartSection.styled.ts';
 
 interface PurchaseFrequencyChartProps {
-  data: PurchaseFrequency[];
+  startDate: Date | null;
+  endDate: Date | null;
 }
 
-const PurchaseFrequencyChart = ({ data }: PurchaseFrequencyChartProps) => {
+const PurchaseFrequencyChart = ({ startDate, endDate }: PurchaseFrequencyChartProps) => {
+  const { data } = useGetPurchaseFrequency({
+    params: {
+      from: startDate ? format(startDate, 'yyyy-MM-dd') : undefined,
+      to: endDate
+        ? format(endDate, 'yyyy-MM-dd')
+        : startDate
+          ? format(startDate, 'yyyy-MM-dd')
+          : undefined,
+    },
+  });
+
   const series = [
     {
       name: 'purchase',
-      data: data.map((item) => ({
-        x: item.range,
-        y: item.count,
-      })),
+      data:
+        data?.map((item) => ({
+          x: item.range,
+          y: item.count,
+        })) ?? [],
     },
   ];
 

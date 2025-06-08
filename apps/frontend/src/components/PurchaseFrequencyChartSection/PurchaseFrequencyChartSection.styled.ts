@@ -22,7 +22,7 @@ export const EmptyChart = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 300px;
+  height: 100%;
   background-color: ${COLOR.GRAY[100]};
 `;
 
@@ -45,4 +45,9 @@ export const Tooltip = styled.div`
   align-items: flex-start;
   width: 100%;
   padding: 0;
+`;
+
+export const ChartContents = styled.div`
+  width: 100%;
+  height: 300px;
 `;

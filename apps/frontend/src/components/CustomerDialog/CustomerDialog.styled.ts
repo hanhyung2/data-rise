@@ -6,6 +6,15 @@ export const ModalHeader = styled.div`
   width: 100%;
 `;
 
+export const ModalBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 300px;
+`;
+
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;

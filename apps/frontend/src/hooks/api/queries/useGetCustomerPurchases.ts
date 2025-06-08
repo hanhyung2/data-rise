@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { QUERY_KEY } from '@/constants';
 import { CustomerModel } from '@/models';
@@ -11,6 +11,8 @@ const fetchCustomerPurchases = async (customerId: CustomerModel['id']) => {
     const response = await axios.get<GetCustomerPurchaseAPIResponse>(
       `http://localhost:4000/api/customers/${customerId}/purchases`,
     );
+
+    throw new Error('고객의 구매내역을 불러오지 못했어요.');
 
     return response.data;
   } catch {
@@ -27,7 +29,7 @@ interface UseGetCustomerPurchasesArgs {
 const useGetCustomerPurchases = ({ pathVariable }: UseGetCustomerPurchasesArgs) => {
   const { customerId } = pathVariable;
 
-  return useQuery({
+  return useSuspenseQuery({
     queryFn: () => fetchCustomerPurchases(customerId),
     queryKey: QUERY_KEY.CUSTOMER_PURCHASES(customerId),
   });

@@ -20,6 +20,7 @@ export const DisplaySection = styled.div`
 
 export const Table = styled.table`
   border-collapse: collapse;
+  height: 600px;
 `;
 
 export const TR = styled.tr<{ $hasBorder?: boolean }>`
@@ -75,4 +76,13 @@ export const SortButton = styled.button`
     color: ${COLOR.GRAY[800]};
     cursor: not-allowed;
   }
+`;
+
+export const EmptyTable = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 600px;
+  background-color: ${COLOR.GRAY[50]};
 `;
