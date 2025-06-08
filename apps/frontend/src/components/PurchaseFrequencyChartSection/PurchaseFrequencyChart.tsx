@@ -88,7 +88,7 @@ const PurchaseFrequencyChart = ({ data }: PurchaseFrequencyChartProps) => {
     return <EmptyChart />;
   }
 
-  return <Chart series={series} type='bar' options={options} height='126px' />;
+  return <Chart series={series} type='bar' options={options} height='300px' />;
 };
 
 export default PurchaseFrequencyChart;

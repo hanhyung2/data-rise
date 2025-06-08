@@ -9,8 +9,9 @@ export const ModalHeader = styled.div`
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
   width: 500px;
+  padding-top: 20px;
 `;
 
 export const ProductWrapper = styled.div`

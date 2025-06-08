@@ -23,11 +23,11 @@ const columns = [
   }),
   accessor('count', {
     header: '구매 횟수',
-    cell: (info) => info.getValue(),
+    cell: (info) => info.getValue().toLocaleString(),
   }),
   accessor('totalAmount', {
     header: '총 구매 금액',
-    cell: (info) => info.getValue(),
+    cell: (info) => info.getValue().toLocaleString(),
   }),
 ];
 
@@ -42,7 +42,7 @@ const Table = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const [selectedCustomer, setSelectedCustomer] = useState<number | null>(null);
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
 
   const handleRowClick = (customer: Customer) => {
     setSelectedCustomer(customer);

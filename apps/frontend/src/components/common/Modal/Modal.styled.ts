@@ -18,7 +18,7 @@ export const Backdrop = styled.div`
 export const Contents = styled.div`
   background-color: ${COLOR.WHITE};
   border-radius: 12px;
-  padding: 12px 24px;
+  padding: 24px;
   min-width: 320px;
   max-width: 90%;
   max-height: 90%;

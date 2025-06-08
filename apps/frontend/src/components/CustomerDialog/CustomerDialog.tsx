@@ -6,6 +6,7 @@ import Contents from './Contents';
 import * as S from './CustomerDialog.styled.ts';
 
 import { Text } from '@/components/common';
+import { AiOutlineClose } from 'react-icons/ai';
 
 interface CustomerDialogProps {
   customer: Customer;
@@ -20,8 +21,11 @@ const CustomerDialog = ({ customer, isOpen, onClose }: CustomerDialogProps) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <S.ModalHeader>
         <Text as='h3' variant='heading'>
-          {name}
+          {name}고객님의 구매 목록
         </Text>
+        <div onClick={onClose} style={{ cursor: 'pointer' }}>
+          <AiOutlineClose size={24} />
+        </div>
       </S.ModalHeader>
       <Contents customerId={id} />
     </Modal>
