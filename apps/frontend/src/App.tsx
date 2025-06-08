@@ -19,7 +19,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Layout>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+        <div>
           <PurchaseFrequencyChartSection />
         </div>
         <CustomerTable />

@@ -1,15 +1,19 @@
 import { useMemo } from 'react';
 
+import { renderToString } from 'react-dom/server';
+
 import Chart from 'react-apexcharts';
 
 import type { ApexOptions } from 'apexcharts';
 
-import { PurchaseFrequencyModel } from '@/models';
+import { PurchaseFrequency } from '@/types';
 
 import EmptyChart from './EmptyChart';
+import PurchaseFrequencyChartTooltip from './PurchaseFrequencyChartTooltip.tsx';
+import * as S from './PurchaseFrequencyChartSection.styled.ts';
 
 interface PurchaseFrequencyChartProps {
-  data: PurchaseFrequencyModel[];
+  data: PurchaseFrequency[];
 }
 
 const PurchaseFrequencyChart = ({ data }: PurchaseFrequencyChartProps) => {
@@ -17,11 +21,13 @@ const PurchaseFrequencyChart = ({ data }: PurchaseFrequencyChartProps) => {
     {
       name: 'purchase',
       data: data.map((item) => ({
-        x: item.count,
-        y: item.range,
+        x: item.range,
+        y: item.count,
       })),
     },
   ];
+
+  const isEmpty = data?.map((item) => item.count).every((count) => count === 0);
 
   const options: ApexOptions = useMemo(
     () => ({
@@ -52,9 +58,6 @@ const PurchaseFrequencyChart = ({ data }: PurchaseFrequencyChartProps) => {
           },
         },
       },
-      grid: {
-        show: false,
-      },
       plotOptions: {
         bar: {
           borderRadius: 4,
@@ -64,31 +67,28 @@ const PurchaseFrequencyChart = ({ data }: PurchaseFrequencyChartProps) => {
           },
         },
       },
-      xaxis: {
-        labels: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        crosshairs: {
-          show: false,
-        },
-      },
-      yaxis: {
-        labels: {
-          show: false,
+      tooltip: {
+        enabled: true,
+        followCursor: true,
+        custom: ({ dataPointIndex }: { dataPointIndex: number; seriesIndex: number }) => {
+          return renderToString(
+            <PurchaseFrequencyChartTooltip series={series} dataPointIndex={dataPointIndex} />,
+          );
         },
       },
     }),
-    [],
+    [series],
   );
 
-  if (data.length === 0) {
+  if (isEmpty) {
     return <EmptyChart />;
   }
 
-  return <Chart series={series} type='bar' options={options} height='300px' />;
+  return (
+    <S.ChartWrapper>
+      <Chart series={series} type='bar' options={options} height='300px' />
+    </S.ChartWrapper>
+  );
 };
 
 export default PurchaseFrequencyChart;
